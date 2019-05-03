@@ -25,24 +25,50 @@ class HomePage extends StatelessWidget {
       // TODO: Add app bar (102)
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: (){},
+          icon: Icon(Icons.menu),
+          onPressed: () {},
         ),
         title: Text('SHIRNE'),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.search),
-              onPressed: (){},
+            icon: Icon(Icons.search),
+            onPressed: () {},
           ),
           IconButton(
-              icon: Icon(Icons.tune),
-              onPressed: (){},
+            icon: Icon(Icons.tune),
+            onPressed: () {},
           ),
         ],
       ),
       // TODO: Add a grid view (102)
-      body: Center(
-        child: Text('You did it!'),
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: EdgeInsets.all(16),
+        childAspectRatio: 8/9,
+        children: <Widget>[
+          Card(
+            child: Column(
+              children: <Widget>[
+                AspectRatio(
+                    aspectRatio: 18/11,
+                    child: Image.asset('assets/diamond.png'),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Title'),
+                      SizedBox(height: 8,),
+                      Text('Secondary Text'),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        ],
       ),
       // TODO: Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
