@@ -70,8 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                   _passwordController.clear();
                 }),
                 RaisedButton(child: Text('NEXT'), onPressed: () {
-                  _usernameController.clear();
-                  _passwordController.clear();
+                  Navigator.pop(context);
                 }),
               ],
             ),
