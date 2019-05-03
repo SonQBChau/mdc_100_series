@@ -13,37 +13,60 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'model/products_repository.dart';
+import 'model/product.dart';
 
 class HomePage extends StatelessWidget {
   // TODO: Make a collection of cards (102)
-  List<Card> _buildGridCards(int count) {
-    List<Card> cards = List.generate(
-      count,
-      (int index) => _buildCard(),
-    );
-    return cards;
+  List<Card> _buildGridCards(BuildContext context) {
+    List<Product> products = ProductsRepository.loadProducts(Category.all);
+
+    if (products == null || products.isEmpty) {
+      return <Card>[];
+    }
+
+    final ThemeData theme = Theme.of(context);
+    final NumberFormat formatter = NumberFormat.simpleCurrency(
+        locale: Localizations.localeOf(context).toString());
+
+    return products.map((product) {
+      return _buildCard(product, theme, formatter);
+    }).toList();
   }
 
-  Card _buildCard() {
+  Card _buildCard(Product product, ThemeData theme, NumberFormat formatter) {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: <Widget>[
           AspectRatio(
             aspectRatio: 18 / 11,
-            child: Image.asset('assets/diamond.png'),
+            child: Image.asset(
+              product.assetName,
+              package: product.assetPackage,
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Title'),
-                SizedBox(
-                  height: 8,
-                ),
-                Text('Secondary Text'),
-              ],
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    product.assetName,
+                    style: theme.textTheme.title,
+                    maxLines: 1,
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    formatter.format(product.price),
+                    style: theme.textTheme.body2,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -80,7 +103,7 @@ class HomePage extends StatelessWidget {
         crossAxisCount: 2,
         padding: EdgeInsets.all(16),
         childAspectRatio: 8 / 9,
-        children: _buildGridCards(10),
+        children: _buildGridCards(context),
       ),
       // TODO: Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
