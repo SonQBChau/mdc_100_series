@@ -45,6 +45,7 @@ class HomePage extends StatelessWidget {
             child: Image.asset(
               product.assetName,
               package: product.assetPackage,
+              fit: BoxFit.fitWidth,
             ),
           ),
           Expanded(
@@ -54,7 +55,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    product.assetName,
+                    product.name,
                     style: theme.textTheme.title,
                     maxLines: 1,
                   ),
