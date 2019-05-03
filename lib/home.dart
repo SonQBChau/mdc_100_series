@@ -16,6 +16,41 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   // TODO: Make a collection of cards (102)
+  List<Card> _buildGridCards(int count) {
+    List<Card> cards = List.generate(
+      count,
+      (int index) => _buildCard(),
+    );
+    return cards;
+  }
+
+  Card _buildCard() {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: 18 / 11,
+            child: Image.asset('assets/diamond.png'),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('Title'),
+                SizedBox(
+                  height: 8,
+                ),
+                Text('Secondary Text'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   // TODO: Add a variable for Category (104)
   @override
   Widget build(BuildContext context) {
@@ -44,31 +79,8 @@ class HomePage extends StatelessWidget {
       body: GridView.count(
         crossAxisCount: 2,
         padding: EdgeInsets.all(16),
-        childAspectRatio: 8/9,
-        children: <Widget>[
-          Card(
-            child: Column(
-              children: <Widget>[
-                AspectRatio(
-                    aspectRatio: 18/11,
-                    child: Image.asset('assets/diamond.png'),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Title'),
-                      SizedBox(height: 8,),
-                      Text('Secondary Text'),
-                    ],
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-        ],
+        childAspectRatio: 8 / 9,
+        children: _buildGridCards(10),
       ),
       // TODO: Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
